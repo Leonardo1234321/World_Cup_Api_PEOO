@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        div { border: 1px solid #ccc; padding: 10px; 
+			        margin-bottom: 10px; border-radius: 5px; }
+        .error { color: red; }
+        button {
+            background-color: white;
+            color: black;
+            border: 2px solid #04AA6D; /* Green */
+        }
+        button {
+            transition-duration: 0.4s;
+        }
+
+        button:hover {
+            background-color: #04AA6D; /* Green */
+            color: white;
+        }   
+
+    </style>
+</head>
+<body>
+    <h2>Seleção de jogos com uma data específica</h2>
+    <select id="dates"></select>
+    <button id='procurar' onclick='exibirJogos()'>Procurar</button><br>
+    <br>
+    <div id="matches"> Selecione uma data e clique em procurar para exibir todos os jogos de uma data específica! </div>
+    <script src="solucaojs.js"></script>
+</body>
+</html>
