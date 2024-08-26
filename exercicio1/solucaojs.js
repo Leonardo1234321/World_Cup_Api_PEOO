@@ -1,6 +1,12 @@
 const url = ['https://worldcupjson.net/matches'];
 var dates = {};
 
+async function processImages() {
+    const data = await fetch('flags.json');
+    const imagens = await data.json();
+    return imagens;
+}
+
 async function processMatches() {
     const dados = await fetch(url);
     const matches_json = await dados.json().catch(error => displayError(error));
@@ -23,17 +29,19 @@ async function processMatches() {
 
 };
 
-function exibirJogos() {
+async function exibirJogos() {
     document.getElementById('matches').innerHTML = ''
+    const country_flags = await processImages();
     const data_selecionado = document.getElementById('dates').value
     if (!data_selecionado) {
         return displayPreencher();
     }
     dates[data_selecionado].forEach(match => {
         const partida = document.createElement('div');
-        partida.innerHTML = `<h3>${match['home_team']['name']} VS ${match['away_team']['name']}</h3><p>Status: ${match['status']}<br>
+        partida.innerHTML = `<img width='32px' src='${country_flags[match['home_team']['name']]}'> ${match['home_team']['name']} VS ${match['away_team']['name']} <img width='32px' src='${country_flags[match['away_team']['name']]}'><p>Status: ${match['status']} <br>
         Resultado: ${match['home_team']['goals']}x${match['home_team']['goals']}
         </p>
+        
         `;
         document.getElementById('matches').appendChild(partida);
     });
@@ -51,3 +59,4 @@ function displayPreencher() {
 };
 
 processMatches();
+
