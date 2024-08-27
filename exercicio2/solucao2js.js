@@ -4,16 +4,20 @@ async function gerarbarraPesquisa() {
     let matchlist = [];
     let matchlist_li = [];
     let li_counter = 0;
+    const sugestoes = document.querySelector('#sugestoes')
     data.forEach(match => {
         const text = `${match['home_team']['name']} x ${match['away_team']['name']} ${match['datetime'].slice(0,9)} ${match['datetime'].slice(11,18)}`;
         matchlist.push(text);
-        const item = document.createElement('li');
+        const item = document.createElement('div');
         item.innerHTML = text;
         item.addEventListener('click', Event => {
-            
+            document.querySelector('#barra_pesquisa').value = item.innerHTML;
+            sugestoes.style.display = 'none';
         })
-        document.querySelector("#sugestoes").appendChild(item);
+        sugestoes.appendChild(item);
+        sugestoes.addEventListener('input')
     });
     
 }
-gerarbarraPesquisa()
+gerarbarraPesquisa();
+

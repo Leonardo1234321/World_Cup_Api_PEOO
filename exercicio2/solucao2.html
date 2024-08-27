@@ -14,18 +14,22 @@
         #barra_pesquisa {
             border: 1px solid #ccc; padding: 10px; 
 		    margin-bottom: 10px; border-radius: 5px; 
-            width: 300px;
             text-align: center;
+            width: 75%;
         }
+        #main {
+            width: 25%;
+        }
+        
     </style>
 </head>
 <body>
     <h1> Pesquise os detalhes de um jogo específico </h1>
-    <div>
+    <div id="main">
         <input id='barra_pesquisa' placeholder="Ex. Equador x Catar 2022-11-20 16:00:00">
-        <ul id="sugestoes">
+        <div id="sugestoes">
     
-        </ul>
+        </div>
     </div>
 
     <script src='solucao2js.js'> </script>
