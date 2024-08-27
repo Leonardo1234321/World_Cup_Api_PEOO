@@ -20,18 +20,32 @@
         #main {
             width: 25%;
         }
+        button {
+            background-color: white;
+            color: black;
+            border: 2px solid black; 
+        }
+        button {
+            transition-duration: 0.4s;
+        }
+
+        button:hover {
+            background-color: black; 
+            color: white;
+        }   
         
     </style>
 </head>
 <body>
     <h1> Pesquise os detalhes de um jogo específico </h1>
+    <h2> Clique na opção desejada na barra de Pesquisa </h2>
     <div id="main">
         <input id='barra_pesquisa' placeholder="Ex. Equador x Catar 2022-11-20 16:00:00">
+        <button id='pesquisar' onclick='gerarDetalhes() '>Pesquisar</button>
         <div id="sugestoes">
     
         </div>
     </div>
-
-    <script src='solucao2js.js'> </script>
+    <script src='solucaoteste2js.js'> </script>
 </body>
 </html>
