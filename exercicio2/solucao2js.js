@@ -1,6 +1,6 @@
 const sugestoes = document.querySelector('#sugestoes');
 const barra_pesquisa = document.querySelector('#barra_pesquisa');
-
+const main = document.querySelector('#main');
 async function processarDados() {
     let data = await fetch('https://worldcupjson.net/matches');
     data = await data.json();
@@ -45,37 +45,46 @@ async function gerarDetalhes() {
     sugestoes.style.display = 'block';
     let valor_entrada = barra_pesquisa.value;
     let data = await processarDados();
+
     if (!barra_pesquisa.value) {
         sugestoes.style.display = 'none';
         alert('Preencha o campo corretamente!');
         return gerarbarraPesquisa();
     }
-    data.forEach(match => {
+    
+    let object = data.find((match) => {
         let template = `${match['home_team']['name']} x ${match['away_team']['name']} ${match['datetime'].slice(0,9)} ${match['datetime'].slice(11,18)}`;
         if (template === valor_entrada) {
-            return console.log(await displayDetalhes(match));
+            return match;
         }
-    })
+    });// a princípio foi usado um forEach, mas gerou problemas de stack junto com o display detalhes ;c
+    
+    sugestoes.style.display = 'none';
+
+    let html_result = document.createElement('div');
+    //html_result.innerHTML = await displayDetalhes(object);
+    let match = await processMatch(object);
+    //main.appendChild(html_result);
+    
 };
 
-async function displayDetalhes(object) {
+async function processMatch(object) {
     let match_info = await fetch(`https://worldcupjson.net/matches/${object.id}/`);
     match_info = await match_info.json();
-    return percorrerDetalhes(match_info, 'Datalhes do jogo: <br>');
-
+    return match_info;
 };
 
 function percorrerDetalhes(objeto, text) {
     let keys = Object.keys(objeto);
-    keys.forEach(chave => {
+    for (let chave of keys) {
         if (typeof objeto[chave] === 'object' && objeto[chave] !== null ) {
             text = text + `${chave}: <br>     ${percorrerDetalhes(objeto[chave], text)}`;
         }
         else {
             text = `${text}<br>${chave}: ${objeto[chave]}`;
         }
-    })
+    }
     return text;
-}
+}; // esse código foi feito com auxílio de IA, a primeira versão usava recursão, mas gerou problemas de stack-overflow ;c
 gerarbarraPesquisa();
 
