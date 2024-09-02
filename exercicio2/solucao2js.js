@@ -65,13 +65,33 @@ async function gerarDetalhes() {
     //html_result.innerHTML = await displayDetalhes(object);
     let match = await processMatch(object);
     //main.appendChild(html_result);
-    
+    let texto = 'Detalhes da partida: ';
+    for (i = 0; i < match.length; i++) {
+        console.log(match[i][1], match[i][0])
+        texto = percorrerDetalhes(match[i][1], `${texto}<br>${match[i][0]}`)
+    }
+    console.log(texto);
 };
 
 async function processMatch(object) {
     let match_info = await fetch(`https://worldcupjson.net/matches/${object.id}/`);
     match_info = await match_info.json();
-    return match_info;
+    let keys = Object.keys(match_info);
+    let divided_objects = [];
+    let temp = {};
+    for (let chave of keys) {
+        if (typeof match_info[chave] != 'object') {
+            temp[chave] = match_info[chave];
+        }
+        else {
+            if (Object.keys(temp).length != 0) {
+                divided_objects.push(['general', temp]);
+            };
+            temp = {};
+            divided_objects.push([chave, match_info[chave]]);
+        }
+    }
+    return divided_objects;
 };
 
 function percorrerDetalhes(objeto, text) {
