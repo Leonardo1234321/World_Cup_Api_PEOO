@@ -62,49 +62,46 @@ async function gerarDetalhes() {
     sugestoes.style.display = 'none';
 
     let html_result = document.createElement('div');
-    //html_result.innerHTML = await displayDetalhes(object);
+
     let match = await processMatch(object);
-    //main.appendChild(html_result);
-    let texto = 'Detalhes da partida: ';
-    for (i = 0; i < match.length; i++) {
-        console.log(match[i][1], match[i][0])
-        texto = percorrerDetalhes(match[i][1], `${texto}<br>${match[i][0]}`)
+    
+    let match_keys = Object.keys(match);
+
+    html_result.innerHTML = '<h2>Detalhes do jogo: </h2>';
+    for (let key of match_keys) {
+        let innerText = document.createElement('p');
+        innerText.innerHTML = percorrerDetalhes(match[key], key, ' ');
+        html_result.appendChild(innerText);
     }
-    console.log(texto);
+
+    main.appendChild(html_result);
 };
 
 async function processMatch(object) {
     let match_info = await fetch(`https://worldcupjson.net/matches/${object.id}/`);
     match_info = await match_info.json();
-    let keys = Object.keys(match_info);
-    let divided_objects = [];
-    let temp = {};
-    for (let chave of keys) {
-        if (typeof match_info[chave] != 'object') {
-            temp[chave] = match_info[chave];
-        }
-        else {
-            if (Object.keys(temp).length != 0) {
-                divided_objects.push(['general', temp]);
-            };
-            temp = {};
-            divided_objects.push([chave, match_info[chave]]);
-        }
-    }
-    return divided_objects;
+    return match_info;
 };
 
-function percorrerDetalhes(objeto, text) {
-    let keys = Object.keys(objeto);
-    for (let chave of keys) {
-        if (typeof objeto[chave] === 'object' && objeto[chave] !== null ) {
-            text = text + `${chave}: <br>     ${percorrerDetalhes(objeto[chave], text)}`;
+function percorrerDetalhes(value, key, text) {
+    if (typeof value == 'object') {
+        let keys = Object.keys(value);
+        text = text + `<br><b>${key.replace('_', ' ')}:</b><br><br>`;
+        for (let chave of keys) {
+            if (typeof value[chave] === 'object' && value[chave] !== null ) {
+                text = percorrerDetalhes(value[chave], chave, text);
+            }
+            else {
+               text = text +`   ${chave}: ${value[chave]}<br>`;
+            }
         }
-        else {
-            text = `${text}<br>${chave}: ${objeto[chave]}`;
-        }
+        return text;
     }
-    return text;
+    else {
+        text = text + `${key}: ${value}`;
+        return text;
+    }
+    
 }; // esse código foi feito com auxílio de IA, a primeira versão usava recursão, mas gerou problemas de stack-overflow ;c
 gerarbarraPesquisa();
 
