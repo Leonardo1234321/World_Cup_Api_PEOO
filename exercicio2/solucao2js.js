@@ -102,6 +102,6 @@ function percorrerDetalhes(value, key, text) {
         return text;
     }
     
-}; // esse código foi feito com auxílio de IA, a primeira versão usava recursão, mas gerou problemas de stack-overflow ;c
+}; // Sérios problemas que a recursão gerou, no fim deu tudo certo
 gerarbarraPesquisa();
 
