@@ -16,7 +16,7 @@ fetch(url)
             head.innerHTML = `
                 <th>Nome</th><th>Pontos</th><th>Vitórias</th><th>Empates</th><th>Derrotas</th><th>Jogos</th><th>Gols a favor</th><th>Gols contra</th><th>Diferença</th>
             ` //define o cabeçalho
-            
+
             tabela.appendChild(head) //adiciona o cabeçalho  à tabela
             group.teams.forEach(team => { //percorre os times
                 let line = tabela.insertRow();
