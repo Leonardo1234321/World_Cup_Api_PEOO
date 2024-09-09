@@ -1,0 +1,12 @@
+site_name: Resolução das questões
+site_author: Leonardo furtado Kauffmann
+
+nav:
+  - Home: index.md
+
+theme:
+  name: material
+
+plugins: 
+  - search 
+  - mermaid2
