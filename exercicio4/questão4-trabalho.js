@@ -20,7 +20,11 @@ fetch(url)
             tabela.appendChild(head) //adiciona o cabeçalho  à tabela
             group.teams.forEach(team => { //percorre os times
                 let line = tabela.insertRow();
-                line.insertCell(0).textContent = `${team.name}`;
+
+                firstcell = line.insertCell(0)
+                firstcell.style.width = "100px"
+
+                firstcell.textContent = team.name;
                 line.insertCell(1).textContent = team.group_points;
                 line.insertCell(2).textContent = team.wins;
                 line.insertCell(3).textContent = team.draws;
