@@ -33,14 +33,31 @@ function buscarJogos(){ //função de mostrar os jogos
     const url_jogos = 'https://worldcupjson.net/matches'; //URL dos jogos
     const arq_bandeiras = 'flags.json' //arquivo json das bandeiras
 
+    // Criação dinâmica do elemento <img> e inserção após o select
+    let imgFlag = document.getElementById('flag');
+    if (!imgFlag) { // Verifica se a imagem já existe
+
+        // Criação dos elementos <br> e <img>
+        const brElement1 = document.createElement('br');
+        const brElement2 = document.createElement('br'); // Linha extra após o select
+        imgFlag = document.createElement('img');
+        imgFlag.id = 'flag';
+
+        // Insere os elementos após o select
+        document.getElementById('equipe').insertAdjacentElement('afterend', brElement1);
+        brElement1.insertAdjacentElement('afterend', brElement2); // Adiciona a linha extra após o select -
+        brElement2.insertAdjacentElement('afterend', imgFlag); //afterend = insere novo elemento após elemento de referência
+
+    }
+    
     fetch(arq_bandeiras)//pegar foto das bandeiras do json
         .then(response => response.json())
         .then(data => {
             const bandeiraUrl = data[nomeEquipe]; //pegar a bandeira de acordo com o nome da equipe
             if (bandeiraUrl) {
-                document.getElementById('flag').src = bandeiraUrl;
+                imgFlag.src = bandeiraUrl;
             } else {
-                document.getElementById('flag').src = ''; // Limpa a imagem se a equipe não for encontrada
+                imgFlag.src = ''; // Limpa a imagem se a equipe não for encontrada
                 alert('Bandeira não encontrada para a equipe especificada.');
             }
         })
