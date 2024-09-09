@@ -3,7 +3,8 @@ site_author: Leonardo furtado Kauffmann
 
 nav:
   - Home: index.md
-
+  - Questão 3: q3.md
+  
 theme:
   name: material
 
