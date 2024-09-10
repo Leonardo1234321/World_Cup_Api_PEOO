@@ -1,6 +1,21 @@
 site_name: Resolução das questões
 site_author: Leonardo furtado Kauffmann
 
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      preserve_tabs: true
+      custom_fences:
+        # Mermaid diagrams
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
 nav:
   - Home: index.md
   - Questão 3: q3.md
@@ -12,3 +27,4 @@ theme:
 plugins: 
   - search 
   - mermaid2
+
