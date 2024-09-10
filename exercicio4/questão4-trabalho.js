@@ -41,6 +41,7 @@ fetch(url)
             tabela.style.borderStyle = "solid";
             tabela.style.background = "lightgreen"
             tabela.style.textAlign = "center"
+            tabela.style.width = "50%"
 
             tabelas.appendChild(tabela) //adiciona cada tabela à div
         })
