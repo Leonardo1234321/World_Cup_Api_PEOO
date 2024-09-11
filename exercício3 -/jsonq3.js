@@ -14,7 +14,9 @@ function todostimes(teams){
 
                 let opção = new Option(country.name, country.name) //adicionar opção
                 console.log(country.name)
+                console.log(equipes.options);
                 equipes.options[equipes.options.length] = opção
+                
         }
     }
 }
